@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
     pthread_join(pr, NULL);
     pthread_join(cn, NULL);
 
-    pthread_mutex_destory(&mut);
+    pthread_mutex_destroy(&mut);
 
     if(pthread_cond_destroy(&cond) != 0) {
         perror("pthread_cond_destroy");
