@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <unistd.h>
 
 pthread_mutex_t mut = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
@@ -20,7 +21,11 @@ void* producer(void *args) {
         perror("pthread_cond_broadcast");
         exit(1);
     }
+    
+    printf("here1\n");
+    usleep(1000000);
 
+    // lockが解放されるとconsumerでのpthread_cond_waitでlockを獲得すると理解
     pthread_mutex_unlock(&mut);
     return NULL;
 }
