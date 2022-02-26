@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
     sem_t *s = sem_open("/mysemaphore", O_CREAT, 0066, 3);
     if (s == SEM_FAILED) {
         perror("sem_open");
-        return 1;
+        return -1;
     }
 
     pthread_t v[NUM_THREADS];
