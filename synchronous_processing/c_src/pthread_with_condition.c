@@ -17,6 +17,10 @@ void* producer(void *args) {
     // printf("here3\n");
     pthread_mutex_lock(&mut);
 
+    // fgetsをここに書いてしまってproducerが先にlockを獲得してしまった場合
+    // consumerはpthread_mutex_lockで待たされる
+    // lockを獲得できる頃にはready = trueになっているので、here2を通ることなく消費を行う。
+    // fgets(buf, sizeof(buf), stdin);
     ready = true;
 
     if (pthread_cond_broadcast(&cond) != 0) {
@@ -33,6 +37,7 @@ void* producer(void *args) {
 }
 
 void* consumer(void *args) {
+    // usleep(1000000);
     // printf("here1\n");
     pthread_mutex_lock(&mut);
 
