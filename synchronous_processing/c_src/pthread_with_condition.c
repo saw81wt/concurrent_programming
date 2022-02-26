@@ -14,7 +14,9 @@ void* producer(void *args) {
     printf("producer: ");
     fgets(buf, sizeof(buf), stdin);
 
+    // printf("here3\n");
     pthread_mutex_lock(&mut);
+
     ready = true;
 
     if (pthread_cond_broadcast(&cond) != 0) {
@@ -22,7 +24,7 @@ void* producer(void *args) {
         exit(1);
     }
     
-    printf("here1\n");
+    // printf("here4\n");
     usleep(1000000);
 
     // lockが解放されるとconsumerでのpthread_cond_waitでlockを獲得すると理解
@@ -31,9 +33,11 @@ void* producer(void *args) {
 }
 
 void* consumer(void *args) {
+    // printf("here1\n");
     pthread_mutex_lock(&mut);
 
     while (!ready) {
+        // printf("here2\n");
         if (pthread_cond_wait(&cond, &mut) != 0) {
             perror("pthread_cond_wait");
             exit(-1);
@@ -41,6 +45,7 @@ void* consumer(void *args) {
     }
 
     pthread_mutex_unlock(&mut);
+    // printf("here5\n");
     printf("consumer: %s\n", buf);
     return NULL;
 }
