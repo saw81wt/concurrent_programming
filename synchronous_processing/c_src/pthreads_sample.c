@@ -1,8 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
-#include <chrono>
-#include <thread>
+#include <unistd.h>
 
 pthread_mutex_t mut = PTHREAD_MUTEX_INITIALIZER;
 
@@ -14,7 +13,7 @@ void* some_func(void *arg) {
 
     // クリティカルセクション
     printf("hello\n");
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    usleep(100000);
     printf("bey\n");
 
     if (pthread_mutex_unlock(&mut) != 0) {
