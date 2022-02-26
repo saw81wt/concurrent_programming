@@ -55,6 +55,13 @@ void* consumer(void *args) {
     return NULL;
 }
 
+/*
+consumerがlockを獲得
+ready = falseなのでpthread_cond_waitでlockの解放と待機を行う
+producerは標準入力を待つ
+標準入力が行われると、lockを獲得して通知を行いlockを解放する
+lockが解放されたのちにconumerはlockを獲得し標準出力を行う
+*/
 int main(int argc, char *argv[]) {
     pthread_t pr, cn;
     pthread_create(&pr, NULL, producer, NULL);
