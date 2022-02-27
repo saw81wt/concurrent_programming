@@ -169,6 +169,7 @@ fn main() {
                 "barrier" => barrier_example(),
                 "semaphore" => semaphore_example(),
                 "bakery" => algorism::bakery_lock::bakery_lock_example(),
+                "banker" => algorism::banker::bancker_example(),
                 _ => help()
             }
         },
