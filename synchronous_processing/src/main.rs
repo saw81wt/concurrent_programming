@@ -3,6 +3,8 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::thread;
 use std::env;
 
+mod algorism;
+
 // 3.8.1 mutex
 fn some_func(lock: Arc<Mutex<u64>>, max: i32, name: &'static str) {
     for _ in 1..max + 1 {
@@ -166,6 +168,7 @@ fn main() {
                 "condition" => condition_example(),
                 "barrier" => barrier_example(),
                 "semaphore" => semaphore_example(),
+                "bakery" => algorism::bakery_lock::bakery_lock_example(),
                 _ => help()
             }
         },
